@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8" />
+    <title>example</title>
+    <link rel="stylesheet" href="sample.css" type="text/css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function()
+    {
+		
+        $('#send').click(function()
+        {
+           var data = {
+		        kind : $('#kind').val(),
+		        contents : $('#contents').val(),
+		        action : $('#action').val()
+	        };
+ 
+            $.ajax({
+                type: "post",
+                url: "db_test.php",
+                data: data,
+                success: function(data, dataType)
+                {
+                    document.getElementById( "phplog" ).value = data ;
+				
+                },
+                error: function()
+                {
+                    alert('送信失敗');
+                }
+            });
+
+            return false;
+        });
+
+        $('#logread').click(function()
+        {
+           var data = {
+		        kind : $('#kind').val(),
+		        contents : $('#contents').val(),
+		        actionread : $('#actionread').val(),
+		        srch_word : $('#srch_word').val()
+	        };
+ 
+            $.ajax({
+                type: "post",
+                url: "db_read.php",
+                data: data,
+                success: function(data, dataType)
+                {
+                    document.getElementById( "phplog" ).value = data ;
+				
+                },
+                error: function()
+                {
+                    alert('送信失敗');
+                }
+            });
+            return false;
+        });
+
+
+
+    });
+    </script>
+</head>
+<body>
+<form id="testForm" name="testForm" method="post" >
+<ul>
+<li><input type="text" size=78 id="kind" name="kind" placeholder="種別"></li>
+<li><textarea name="contents" rows="15" cols="80" id="contents" placeholder="内容" ></textarea></li>
+<li><textarea name="phplog" rows="15" cols="80" id="phplog" placeholder="読み出し" ></textarea></li>
+<li><input type="text" size=20 id="srch_word" name="srch_word" placeholder="検索ワード"></li>
+</ul>
+
+<p class="more"><input id="send" type="submit" value="DB書き込み"onclick="clickwrite()"/>
+<select name="action" id="action">
+    <option value="add">追加登録（書き込み）</option>
+    <option value="delall">全削除（書き込み）</option>
+    </select></p>
+<p class="more"><input id="logread" type="submit" value="DB読み出し"onclick="clickread()"/>
+<select name="actionread" id="actionread">
+    <option value="readall">全読み出し（読み出し）</option>
+    <option value="srch">検索ワード選択（読み出し）</option>
+    <option value="kindselect">種別選択（読み出し）</option>
+    </select></p>
+<input type="reset" value="クリア">
+</form>
+</body>
+</html>
+
+<script>
+function clickread(){
+
+    if(($('#actionread').val()=="srch")){
+        if(($('#srch_word').val()=="")){
+            alert("検索ワードが未入力です");    
+        }
+
+    }
+    if(($('#actionread').val()=="kindselect")){
+        if(($('#kind').val()=="")){
+            alert("種別が未入力です");    
+        }
+
+    }
+}
+function clickwrite(){
+
+    if(($('#action').val()=="add")){
+        if(($('#kind').val()=="")){
+        alert("種別が未入力です");    
+        }
+
+        if(($('#contents').val()=="")){
+        alert("内容が未入力です");    
+        }
+
+    }
+
+}
+</script>

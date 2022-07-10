@@ -1,0 +1,9 @@
+<?php
+$host = "localhost"; 
+$user = "root"; 
+$pass = ""; 
+$dbname = "memodb"; 
+$dbtable = "memotable"; 
+$dsn = "mysql:host=localhost;dbname=memodb;charset=utf8";
+$email_to ="";
+?>

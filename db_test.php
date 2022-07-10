@@ -10,10 +10,9 @@ file_put_contents("../from_html.txt", $_POST['action']."\n",FILE_APPEND);
 
 try{
 	
-	$dsn = "mysql:dbname=$dbname;host=$host;charset=utf8;";
 
     $pdo = new PDO(
-        'mysql:host=$host;dbname=$dbname_memo;charset=utf8',
+        $dsn,
         $user,
         $pass
     );
@@ -58,7 +57,7 @@ try{
 
 try{
     $pdo = new PDO(
-        'mysql:host=$host;dbname=$dbname;charset=utf8',
+        $dsn,
         $user,
         $pass
     );
